@@ -107,7 +107,7 @@ function sendDesconectionToServer(idUser, metodo, fecha = new Date(), tiempo = 0
 function sendInfoToServer(idUser, metodo, fecha = new Date()) {
     const fechaMadrid = fecha.toLocaleString("es-ES", { timeZone: "Europe/Madrid" });
 
-    fetch('https://hook.eu2.make.com/8skg3rb5ohz0ea9szhbq42v1ddebtk6c', {
+    fetch('https://hook.eu2.make.com/9gl1548kye7e2c57iphjv9vjzy2245bo', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -153,32 +153,60 @@ function openForm() {
   formModal.classList.remove('hidden');
 }
 
+function showForm(type) {
+    document.getElementById('choiceStep').classList.add('hidden');
+    if (type === 'negocio') {
+      document.getElementById('formNegocio').classList.remove('hidden');
+    } else {
+      document.getElementById('formVender').classList.remove('hidden');
+    }
+  }
+
 function closeForm() {
   const formModal = document.getElementById('formModal');
   formModal.classList.add('hidden');
+  document.getElementById('choiceStep').classList.remove('hidden');
+  document.getElementById('formNegocio').classList.add('hidden');
+  document.getElementById('formVender').classList.add('hidden');
 }
 
-function submitForm(event) {
+function submitForm(event,tipo) {
   event.preventDefault();
   // Aquí puedes manejar el envío del formulario
-  sendData();
+  sendData(tipo);
   closeForm();
   showPopupConfirmation();
 }
 
-function sendData() {
-
-    const name = document.getElementById('name').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const email = document.getElementById('email').value.trim();
-
-    const data = {
+function sendData(tipo) {
+  let data = {};
+  if (tipo === 'negocio') {
+    const name = document.getElementById('nameNegocio').value.trim();
+    const phone = document.getElementById('phoneNegocio').value.trim();
+    const sector = document.getElementById('sectorNegocio').value.trim();
+    const web = document.getElementById('webNegocio').value.trim();
+    data = {
+        tipo: tipo,
         name: name,
         phone: phone,
-        email: email
+        sector: sector,
+        web: web,
     };
+  }else{
+    const name = document.getElementById('nameVender').value.trim();
+    const phone = document.getElementById('phoneVender').value.trim();
+    const email = document.getElementById('emailVender').value.trim();
+    data = {
+        tipo: tipo,
+        name: name,
+        phone: phone,
+        email: email,
+    };
+  }
 
-    fetch('https://hook.eu2.make.com/nwrz6caje82vjpqfrmsjm27v2ocnulqi', {
+    
+
+    fetch('https://hook.eu2.make.com/9gl1548kye7e2c57iphjv9vjzy2245bo', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -211,7 +239,7 @@ function showPopupConfirmation() {
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 text-center relative animate-fadeIn">
             <button onclick="closePopupConfirmation()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xl font-bold">×</button>
             <h2 class="text-2xl font-bold text-green-600 mb-2">¡Datos enviados con éxito!</h2>
-            <p class="text-gray-700 mb-4">En breves te llamará nuestra asistenta <strong>LucIA</strong>, desde un número estadounidense para poder hacerte unas preguntas.</p>
+            <p class="text-gray-700 mb-4">Nuestro equipo se pondrá en contacto contigo lo antes posible para que puedas probar la herramienta.</p>
             <button onclick="closePopupConfirmation()" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-accent transition-all">Cerrar</button>
         </div>
     `;

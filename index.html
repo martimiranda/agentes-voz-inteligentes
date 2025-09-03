@@ -93,32 +93,91 @@
   <div id="formModal" class="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center hidden">
     <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative">
       <button onclick="closeForm()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-xl font-bold">×</button>
-      <h2 class="text-2xl font-semibold text-dark mb-4 text-center">¡Déjanos tus datos!</h2>
-      <form onsubmit="submitForm(event)" class="space-y-4">
-        <div>
-          <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
-          <input type="text" id="name" name="name" required
-            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"/>
+      
+      <!-- Pantalla inicial -->
+      <div id="choiceStep">
+        <h2 class="text-2xl font-semibold text-dark mb-6 text-center">
+          ¿Qué uso quieres darle a esta tecnología?
+        </h2>
+        <div class="space-y-4">
+          <button onclick="showForm('negocio')" 
+            class="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-accent transition-all">
+            Quiero implementarla en mi negocio
+          </button>
+          <button onclick="showForm('vender')" 
+            class="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-accent transition-all">
+            Quiero venderla a otros negocios
+          </button>
         </div>
-        <div>
-          <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
-          <input type="tel" id="phone" name="phone" required
-            placeholder="Ej: 612345678"
-            pattern="[6-9][0-9]{8}"
-            title="Introduce un número de teléfono español válido de 9 dígitos, empezando por 6, 7, 8 o 9"
-            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"/>
-        </div>
+      </div>
 
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-          <input type="email" id="email" name="email" required
-            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"/>
-        </div>
-        <button type="submit" 
-          class="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-accent transition-all">
-          Enviar
-        </button>
-      </form>
+      <!-- Formulario para negocios -->
+      <div id="formNegocio" class="hidden">
+        <h2 class="text-2xl font-semibold text-dark mb-4 text-center">
+          Déjanos tus datos para recibir tu demo
+        </h2>
+        <form onsubmit="submitForm(event, 'negocio')" class="space-y-4">
+          <div>
+            <label for="nameNegocio" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+            <input type="text" id="nameNegocio" name="name" required
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"/>
+          </div>
+          <div>
+            <label for="phoneNegocio" class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+            <input type="tel" id="phoneNegocio" name="phone" required
+              placeholder="Ej: 612345678"
+              pattern="[6-9][0-9]{8}"
+              title="Introduce un número de teléfono español válido de 9 dígitos, empezando por 6, 7, 8 o 9"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"/>
+          </div>
+
+          <div>
+            <label for="sectorNegocio" class="block text-sm font-medium text-gray-700 mb-1">Sector del negocio</label>
+            <input type="text" id="sectorNegocio" name="name" required
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"/>
+          </div>
+          <div>
+            <label for="webNegocio" class="block text-sm font-medium text-gray-700 mb-1">Página web del negocio</label>
+            <input type="text" id="webNegocio" name="name" required
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"/>
+          </div>
+          <button type="submit" 
+            class="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-accent transition-all">
+            Enviar
+          </button>
+        </form>
+      </div>
+
+      <!-- Formulario para vendedores -->
+      <div id="formVender" class="hidden">
+        <h2 class="text-2xl font-semibold text-dark mb-4 text-center">
+          Déjanos tus datos para recibir tu demo
+        </h2>
+        <form onsubmit="submitForm(event, 'vender')" class="space-y-4">
+          <div>
+            <label for="nameVender" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+            <input type="text" id="nameVender" name="name" required
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"/>
+          </div>
+          <div>
+            <label for="emailVender" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input type="email" id="emailVender" name="email" required
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"/>
+          </div>
+          <div>
+            <label for="phoneVender" class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+            <input type="tel" id="phoneVender" name="phone" required
+              placeholder="Ej: 612345678"
+              pattern="[6-9][0-9]{8}"
+              title="Introduce un número de teléfono español válido de 9 dígitos, empezando por 6, 7, 8 o 9"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"/>
+          </div>
+          <button type="submit" 
+            class="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-accent transition-all">
+            Enviar
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 
