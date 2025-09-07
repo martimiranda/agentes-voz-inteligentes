@@ -177,12 +177,26 @@ function submitForm(event,tipo) {
   closeForm();
   showPopupConfirmation();
 }
+function procesar_phone(phone) {
+  // Convertimos a string por seguridad
+  phone = String(phone).trim();
+
+  if (phone.startsWith("+34")) {
+    return phone.slice(1); // elimina el "+"
+  } else if (phone.startsWith("34")) {
+    return phone; // ya está bien
+  } else {
+    return "34" + phone; // añadimos prefijo
+  }
+}
+
 
 function sendData(tipo) {
   let data = {};
   if (tipo === 'negocio') {
     const name = document.getElementById('nameNegocio').value.trim();
-    const phone = document.getElementById('phoneNegocio').value.trim();
+    let phone = document.getElementById('phoneNegocio').value.trim();
+    phone = procesar_phone(phone);
     const sector = document.getElementById('sectorNegocio').value.trim();
     const web = document.getElementById('webNegocio').value.trim();
     data = {
@@ -194,7 +208,8 @@ function sendData(tipo) {
     };
   }else{
     const name = document.getElementById('nameVender').value.trim();
-    const phone = document.getElementById('phoneVender').value.trim();
+    let phone = document.getElementById('phoneVender').value.trim();
+    phone = procesar_phone(phone);
     const email = document.getElementById('emailVender').value.trim();
     data = {
         tipo: tipo,
